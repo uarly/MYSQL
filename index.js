@@ -15,5 +15,12 @@ connection.connect(function(error){
 })
 
 function displayHRsystem(_){
-    console.log("Welcome to Arl's Employee tracker")
+    console.log("Welcome to Arl's Employee tracker");
+    inquirer.prompt([
+        {
+            type:"list",
+            name:"entry",
+            choices:["View Employeee", "View Role","View Department","Add Department","Add Role","Add Employee","Exit App"]
+        }
+    ])
 }
