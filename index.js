@@ -29,7 +29,7 @@ function displayHRsystem(){
                 viewemployee();
                 break;
             case "View Role":
-                viewRole() ;
+                viewrole() ;
                 break;
             case "View Department":
                 viewdepartment();
@@ -59,6 +59,26 @@ function displayHRsystem(){
 
 function viewemployee(){
     connection.query("select * from employee", function(error, data){
+        if (error) throw error;
+        console.table(data)
+        displayHRsystem()
+
+    })
+}
+
+
+
+function viewrole(){
+    connection.query("select * from role", function(error, data){
+        if (error) throw error;
+        console.table(data)
+        displayHRsystem()
+
+    })
+}
+
+function viewdepartment(){
+    connection.query("select * from department", function(error, data){
         if (error) throw error;
         console.table(data)
         displayHRsystem()
