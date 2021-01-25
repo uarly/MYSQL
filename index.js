@@ -5,7 +5,7 @@ require("console.table")
 var connection = mysql.createConnection({
     host:"localhost",
     user:"root",
-    passwrd:"Smaia123",
+    password:"password",
     database: "employeetracker"
 })
 
@@ -14,17 +14,18 @@ connection.connect(function(error){
     displayHRsystem()
 })
 
-function displayHRsystem(_){
+function displayHRsystem(){
     console.log("Welcome to Arl's Employee tracker");
     inquirer.prompt([
         {
             type:"list",
             name:"entry",
-            choices:["View Employeee", "View Role","View Department","Add Department","Add Role","Add Employee","Exit App"]
+            choices:["View Employee", 
+            "View Role","View Department","Add Department","Add Role","Add Employee","Exit App"]
         }
     ]).then(response => {
         switch(response.entry){
-            case "View Employees":
+            case "View Employee":
                 viewemployee();
                 break;
             case "View Role":
@@ -59,6 +60,8 @@ function displayHRsystem(_){
 function viewemployee(){
     connection.query("select * from employee", function(error, data){
         if (error) throw error;
-        console.log("Data,",data)
+        console.table(data)
+        displayHRsystem()
+
     })
 }
