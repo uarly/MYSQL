@@ -22,5 +22,43 @@ function displayHRsystem(_){
             name:"entry",
             choices:["View Employeee", "View Role","View Department","Add Department","Add Role","Add Employee","Exit App"]
         }
-    ])
+    ]).then(response => {
+        switch(response.entry){
+            case "View Employees":
+                viewemployee();
+                break;
+            case "View Role":
+                viewRole() ;
+                break;
+            case "View Department":
+                viewdepartment();
+                break;
+            case  "Add Department"    :
+                adddepartment();
+                break;
+            case "Add Role":
+                addrole();
+                break;
+            case "Add Employee "        :
+                addemployee();
+                break;
+           case "Update Employee"     :
+               updatemployee();
+               break;
+            default:
+                   connection.end();
+                   process.exit(0)  
+        } 
+    
+    })
+}
+
+
+
+
+function viewemployee(){
+    connection.query("select * from employee", function(error, data){
+        if (error) throw error;
+        console.log("Data,",data)
+    })
 }
