@@ -40,12 +40,9 @@ function displayHRsystem(){
             case "Add Role":
                 addrole();
                 break;
-            case "Add Employee "        :
+            case "Add Employee"        :
                 addemployee();
                 break;
-           case "Update Employee"     :
-               updatemployee();
-               break;
             default:
                    connection.end();
                    process.exit(0)  
@@ -100,4 +97,62 @@ function adddepartment(){
            console.table("Added department",data)
            displayHRsystem()})
    })
-}
+}    
+
+function addrole(){
+    inquirer.prompt([
+        {
+            type: "input",
+            message:"Enter Role Title",
+            name:"title"
+        },  {
+            type: "input",
+            message:"Enter Role salary",
+            name:"salary"
+        },  {
+            type: "list",
+            message:"Enter Role for department no",
+            name:"department",
+            choices: [1,2,3]
+        }
+
+    ]).then(function (response){
+        connection.query("insert into role(title,salary,department_id) values (?,?,?);",[response.title,response.salary,response.department],function(err,data){
+            if (err) throw err;
+            console.table("Added roles for department",data)
+            displayHRsystem()
+    })
+})
+ }   
+    
+ function addemployee(){
+    inquirer.prompt([
+        {
+            type: "input",
+            message:"Enter employeefirstname",
+            name:"firstname"
+        },  {
+            type: "input",
+            message:"employeelastname",
+            name:"lastname"
+        },  {
+            type: "list",
+            message:"Enter Role id",
+            name:"roleid",
+            choices: [1,2,3]
+        },
+        {
+            type: "list",
+            message:"Enter manager id",
+            name:"managerid",
+            choices: [1,2,3]
+        }
+
+    ]).then(function (response){
+        connection.query("insert into employee(first_name,last_name,role_id,manager_id) values (?,?,?,?);",[response.firstname,response.lastname,response.roleid,response.managerid],function(err,data){
+            if (err) throw err;
+            console.table("Added roles for department",data)
+            displayHRsystem()
+    })
+})
+ }   
