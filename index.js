@@ -81,7 +81,23 @@ function viewdepartment(){
     connection.query("select * from department", function(error, data){
         if (error) throw error;
         console.table(data)
-        displayHRsystem()
+       displayHRsystem()
 
     })
+}
+
+
+function adddepartment(){
+   inquirer.prompt([
+       {
+           type: "input",
+           message:"Enter department name",
+           name:"name"
+       }
+   ]).then(function (response){
+       connection.query("insert into department(name) values (?);",response.name,function(err,data){
+           if (err) throw err;
+           console.table("Added department",data)
+           displayHRsystem()})
+   })
 }
